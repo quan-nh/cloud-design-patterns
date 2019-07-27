@@ -5,7 +5,7 @@
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
-  (GET "/admin" [] "Admin Page")
+  (GET "/premium" [] "Premium Resource")
   (route/not-found "Not Found"))
 
 (def app
