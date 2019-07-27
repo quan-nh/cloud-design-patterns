@@ -12,6 +12,8 @@
 
 ## Sample
 
+<img src="https://miro.medium.com/max/1400/0*L6GAQ_uhKQGRVzcH" width="800">
+
 - Create GKE cluster & connect to it.
 
 - Deploy
