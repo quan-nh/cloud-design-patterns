@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-with-sidecar
+  labels:
+    app: clj-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clj-web
+  template:
+    metadata:
+      labels:
+        app: clj-web
+    spec:
+      containers:
+      - name: app-container
+        image: gcr.io/bookshelf-project-240508/clj-web
+        ports:
+        - containerPort: 3000
+      - name: sidecar-container
+        image: keycloak/keycloak-gatekeeper
+        args:
+        - --config=/etc/config/keycloak-gatekeeper.yaml
+        ports:
+        - containerPort: 3001
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: gatekeeper-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-with-sidecar
+  labels:
+    app: clj-web
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3001
+  selector:
+    app: clj-web

@@ -1,0 +1,20 @@
+listen: :3001
+upstream-url: http://localhost:3000
+redirection-url: http://34.67.46.217
+
+client-id: clj-web
+client-secret: secret
+
+discovery-url: http://35.202.65.133/auth/realms/sample
+enable-default-deny: true
+secure-cookie: false
+
+resources:
+- uri: /*
+  roles:
+  - user
+  - user-premium
+  require-any-role: true
+- uri: /premium*
+  roles:
+  - user-premium

@@ -52,7 +52,20 @@
             "redirectUris": [
                 "http://localhost:3001/*"
             ],
-            "secret": "secret"
+            "secret": "secret",
+            "protocolMappers": [
+              {
+                "name": "aud",
+                "protocol": "openid-connect",
+                "protocolMapper": "oidc-audience-mapper",
+                "consentRequired": false,
+                "config": {
+                  "included.client.audience": "clj-web",
+                  "id.token.claim": "false",
+                  "access.token.claim": "true"
+                }
+              }
+            ]
         }
     ]
 }

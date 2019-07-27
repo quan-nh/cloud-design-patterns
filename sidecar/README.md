@@ -12,7 +12,7 @@
 
 ## Sample
 
-<img src="https://miro.medium.com/max/1400/0*L6GAQ_uhKQGRVzcH" width="800">
+<img src="https://miro.medium.com/max/1400/0*L6GAQ_uhKQGRVzcH" width="600">
 
 - Create GKE cluster & connect to it.
 
@@ -22,5 +22,12 @@
 $ kubectl create configmap keycloak-config --from-file=keycloak-sample-realm.json
 $ kubectl apply -f keycloak-deployment.yaml
 
+# app-with-sidecar
+$ gcloud builds submit -t gcr.io/bookshelf-project-240508/clj-web clj-web/
+$ kubectl create configmap gatekeeper-config --from-file=keycloak-gatekeeper.yaml
+$ kubectl apply -f app-deployment.yaml
+
 $ kubectl get services
+$ kubectl get pods
+$ kubectl logs app-with-sidecar-xx -c sidecar-container --follow
 ```
